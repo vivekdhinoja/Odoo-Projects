@@ -1,0 +1,252 @@
+<odoo>
+    <data>
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="name">view.employee.form</field>
+            <field name="model">employee</field>
+            <!--            <field name="inherit_id" ref="crm.lead_form"/>-->
+            <field name="arch" type="xml">
+                <form string="employee" version="11.0">
+                    <sheet>
+                        <header>
+                            <button name="set_emp_sequence" type="object" string="Generate Sequence"
+                                    class="oe_highlight"/>
+                            <button name="%(employee_v11.action_leaves)d" type="action" string="Leaves"/>
+                            <button name="%(employee_v11.action_view_form_workingdays)d" type="action"
+                                    string="Salary Calculate"/>
+                            <button name="call_wizard" type="object" string="Salary Calculate by Object"/>
+                        </header>
+                        <group>
+                            <div>
+                                <field name="image" widget="image"/>
+                            </div>
+                            <h1>
+                                <field name="name"/>
+                                <br/>
+                                <field name="emp_id"/>
+                            </h1>
+                        </group>
+                        <group colspan="4" col="4">
+                            <field name="responsible_id"/>
+                            <field name="age"/>
+                            <field name="active"/>
+                            <field name="bdate"/>
+                            <field name="jdate"/>
+                            <field name="ldate"/>
+                            <field name="basic" widget="float_time"/>
+                            <field name="testtotal"/>
+                            <field name='leaves'/>
+                            <field name='total'/>
+                            <field name="gender" widget="radio"/>
+                            <field name="email" widget="email"/>
+                            <field name="phone"/>
+                            <field name="department_id"/>
+                            <field name="ref"/>
+                            <field name="ref_link" widget="url"/>
+                            <field name="type"/>
+                        </group>
+                        <notebook>
+                            <page string="Reference Details">
+                                <field name="res_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="contact"/>
+                                        <field name="email"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="contact"/>
+                                            <field name="email"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Personal Details">
+                                <separator string="Hobbies Detials" colspan="4"/>
+                                <field name="hobbies_id" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </page>
+                        </notebook>
+                        <separator string="Templates" colspan="4"/>
+                        <field name="template" nolabel="1"/>
+                        <separator string="Notes" colspan="4"/>
+                        <field name="notes" nolabel="1"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_employee_inherit_res_partner" model="ir.ui.view">
+            <field name="name">view.employee.inherit.res.partners</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="passport_no"/>
+                </xpath>
+                <!--                <field name="email" position="after">-->
+                <!--                    <field name="passport_no"/>-->
+                <!--                </field>-->
+                <!--                <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='mobile']" position="after">-->
+                <!--                    <field name="passport_no"/>-->
+                <!--                </xpath>-->
+            </field>
+        </record>
+
+        <record id="view_employee_tree" model="ir.ui.view">
+            <field name="name">view.employee.tree</field>
+            <field name="model">employee</field>
+            <field name="arch" type="xml">
+                <tree string="Employee">
+                    <field name="name"/>
+                    <field name="age"/>
+                    <field name="active"/>
+                    <field name="bdate"/>
+                    <field name="jdate"/>
+                    <field name="basic"/>
+                    <field name="department_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_leaves_tree" model="ir.ui.view">
+            <field name="name">view.leaves.tree</field>
+            <field name="model">leaves</field>
+            <field name="arch" type="xml">
+                <tree string="Leaves">
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="duration"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_employee_graph">
+            <field name="name">view.employee.graph</field>
+            <field name="model">employee</field>
+            <field name="arch" type="xml">
+                <graph string="Employee Graph View">
+                    <field name="name" type='row'/>
+                    <field name="department_id" type="column"/>
+                    <field name='basic' type='measure'/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_employee_calendar" model="ir.ui.view">
+            <field name="name">view.employee.calendar</field>
+            <field name="model">employee</field>
+            <field name="arch" type="xml">
+                <calendar string="Employee" date_start="jdate" date_stop="ldate">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!--        <record id="view_employee_gantt" model="ir.ui.view">-->
+        <!--			<field name="name">view.employee.gantt</field>-->
+        <!--			<field name="model">employee</field>-->
+        <!--			<field name="arch" type="xml">-->
+        <!--				<gantt string='Employee' date_start='jdate' date_stop='ldate'-->
+        <!--					progress='basic'>-->
+        <!--					<field name='name'/>-->
+        <!--				</gantt>-->
+        <!--			</field>-->
+        <!--		</record>-->
+
+        <record model="ir.ui.view" id="view_employee_pivot">
+            <field name="name">employee.pivot</field>
+            <field name="model">employee</field>
+            <field name="arch" type="xml">
+                <pivot string="Employee">
+                    <field name="name"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_employee_kanban">
+            <field name="name">view.employee.kanban</field>
+            <field name="model">employee</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by='gender'>
+                    <field name='id'/>
+                    <field name='image'/>
+                    <field name="name"/>
+                    <field name="basic"/>
+                    <field name="bdate"/>
+                    <field name='email'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.id.value)}">
+                                <div class="oe_kanban_card oe_semantic_html_override"><!-- style="background-color:lightgrey; border-radius:10px; border: 2px solid #7600d1" -->
+                                    <div class="oe_resource_image">
+                                        <a type='open'>
+                                            <img t-att-src="kanban_image('employee','image',record.id.value)"
+                                                 class="oe_kanban_image"/>
+                                        </a>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <ul>
+                                            <li>
+                                                <field name='name'/>
+                                            </li>
+                                            <li>
+                                                <field name='basic'/>
+                                            </li>
+                                            <li>
+                                                <field name='bdate'/>
+                                            </li>
+                                            <li>
+                                                <a href="mailto:{record.email.value}">
+                                                    <field name="email"/>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_employee_search" model="ir.ui.view">
+            <field name="name">view.employee.search</field>
+            <field name="model">employee</field>
+            <field name="arch" type="xml">
+                <search string="Employee">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <group string="Filter by">
+                        <filter name="by_gender_male" string="Male" domain="[('gender','=','male' )]"/>
+                        <filter name="by_gender_female" string="Female" domain="[('gender','=','female')]"/>
+                    </group>
+                    <group string="Group by">
+                        <filter name="by_gender_m_f" string="Gender" domain="[]" context="{'group by':'gender'}"/>
+                        <filter name="by_employee_type" string="Employee Type" context="{'group by':'type' }"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_leaves" model="ir.actions.act_window">
+            <field name="name">Leaves</field>
+            <field name="res_model">leaves</field>
+            <field name="veiw_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="action_employee_11" model="ir.actions.act_window">
+            <field name="name">Employee</field>
+            <field name="res_model">employee</field>
+            <field name="veiw_type">form</field>
+            <field name="view_mode">tree,form,graph,calendar,pivot,kanban</field>
+        </record>
+
+        <menuitem id="menu_main_11" groups="employee_v11.group_emp_manager_id" name="Employee"/>
+        <menuitem id="menu_HR_11" name="Emplyee Details" parent="menu_main_11"/>
+        <menuitem id="menu_employee_11" action="action_employee_11" parent="menu_HR_11"/>
+        <menuitem id="menu_leaves" action="action_leaves" parent="menu_HR_11"/>
+    </data>
+</odoo>

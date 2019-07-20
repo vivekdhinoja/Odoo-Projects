@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--        <template id="report_employee_v11_inherit" inherit_id="sale.report_saleorder_document">-->
+        <!--            <xpath expr="//div[@class='row et32 mb32']/div[@t-if='o.date_order']" position="replace">-->
+        <!--                <strong t-if="o.state not in ['draft','sent']">Date:</strong>-->
+        <!--                <strong t-if="o.state in ['draft','sent']">Date:</strong>-->
+        <!--            </xpath>-->
+        <!--            <xpath expr="//div[@class='row et32 mb32']/div[@t-if='o.user_id_name']" position="replace">-->
+        <!--                <strong>Salesman</strong>-->
+        <!--                <p t-field="o.user_id_name" />-->
+        <!--            </xpath>-->
+        <!--        </template>-->
+
+        <!--        <template id="report_employee_v11">-->
+        <!--            <t t-call="web.html_container">-->
+        <!--                <t t-foreach="docs" t-as="object">-->
+        <!--                    <t t-call="web.external_layout">-->
+        <!--                        <div class="page">-->
+        <!--                            <p>This is Employee Report</p>-->
+        <!--                            <span t-field="object.name"/>-->
+        <!--                        </div>-->
+        <!--                        <table border="1">-->
+        <!--                            <tr>-->
+        <!--                                <td>Customer</td>-->
+        <!--                                <td>Sales Order No.</td>-->
+        <!--                                <td></td>-->
+        <!--                            </tr>-->
+        <!--                            <tr>-->
+        <!--                                <td>Date In</td>-->
+        <!--                                <td>Date Out</td>-->
+        <!--                                <td>Date Out</td>-->
+        <!--                            </tr>-->
+        <!--                            <tr>-->
+        <!--                                <td>Product</td>-->
+        <!--                                <td></td>-->
+        <!--                            </tr>-->
+        <!--                            <tr></tr>-->
+        <!--                            <tr></tr>-->
+        <!--                        </table>-->
+        <!--                    </t>-->
+        <!--                </t>-->
+        <!--            </t>-->
+        <!--        </template>-->
+
+        <template id="sale_order_report">
+            <t t-call="web.html_container">
+                <t t-call="employee_v11.report_employee_external_layout">
+                    <t t-call="employee_v11.report_employee_internal_layout">
+                        <!--                    <div class="header">-->
+                        <!--                        <t t-foreach="docs" t-as="o">-->
+                        <!--                            <div class="row" style='font-size:15px;'>-->
+                        <!--                                <div class="col-xs-4">-->
+                        <!--                                    <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo"-->
+                        <!--                                         style="max-height: 150px;"/>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </t>-->
+                        <!--                    </div>-->
+                        <t t-foreach="docs" t-as="object">
+                            <div class="page">
+                                <hr style="margin-top: 0px; margin-bottom: 0px; padding: 0px 0px;"/>
+                                <h4 style="margin-top: 20px;">
+                                    Quotation #
+                                    <span t-field="object.name"/>
+                                </h4>
+                            </div>
+                            <table style="table-layout: fixed; width: 100%; margin-top: 30px; margin-bottom: 30px;">
+                                <tr style="color:#9E9E9E;">
+                                    <td>Payment Terms:</td>
+                                    <td>Incoterms</td>
+                                    <td>Expiration Date:</td>
+                                    <td>Promiced Delivery</td>
+                                    <td>Quotation Date:</td>
+                                </tr>
+                                <tr>
+                                    <td>04/24/2019</td>
+                                    <td>Floating Price</td>
+                                    <td>FAS</td>
+                                    <td>06/05/2019</td>
+                                    <td>05/05/2019-05/05/2019</td>
+                                </tr>
+                            </table>
+                            <table class="table" border="1">
+                                <!--                            <thead>-->
+                                <tr style="color:#9E9E9E;">
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>Tolerance</th>
+                                    <th>Unit Price</th>
+                                </tr>
+                                <!--                            </thead>-->
+                                <t t-foreach="object.order_line" t-as="my_order_line">
+                                    <tr>
+                                        <td>
+                                            <span t-field="my_order_line.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="my_order_line.product_uom_qty"/>
+                                        </td>
+                                        <td>
+                                            <span>10%</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="my_order_line.price_unit"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!--        <template id="report_sale_order_extended" inherit_id="sale.report_saleorder">-->
+        <!--        <t t-call="sale.report_saleorder_document" position='replace'>-->
+        <!--            <t t-foreach="docs" t-as="o">-->
+        <!--                <t t-call="Report_extended.report_quotation_document" t-lang="o.partner_id.lang"/>-->
+        <!--            </t>-->
+        <!--        </t>-->
+        <!--    </template>-->
+    </data>
+</odoo>

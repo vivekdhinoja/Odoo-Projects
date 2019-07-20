@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_employee_internal_layout">
+        <!-- Multicompany -->
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+
+        <div class="article">
+            <t t-raw="0"/>
+        </div>
+    </template>
+
+    <!--    <template id="report_employee_extended_internal" inherit_id="sale.report_saleorder">-->
+    <!--        <t t-call="sale.report_saleorder_document" position='replace'>-->
+    <!--            <t t-foreach="docs" t-as="o">-->
+    <!--                <t t-call="employee_v11.report_quotation_document" />-->
+    <!--            </t>-->
+    <!--        </t>-->
+    <!--    </template>-->
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+accesss_user_group_employee,Access to User for Employee,model_employee,employee_v11.group_emp_user_id,1,1,0,0
+accesss_user_group_reference_detail,Access to User for Reference Details,model_reference_detail,,1,1,0,0
+accesss_manager_group_employee,Access to Manager for Employee,model_employee,employee_v11.group_emp_manager_id,1,1,1,1

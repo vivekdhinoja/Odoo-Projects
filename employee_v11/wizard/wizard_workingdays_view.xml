@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record id="view_form_workingdays" model="ir.ui.view">
+            <field name="name">view.form.workingdays</field>
+            <field name="model">wizard.working.days</field>
+            <field name="arch" type="xml">
+                <form string="Working Days" version="11.0">
+                    <group>
+                        <field name="days"/>
+                    </group>
+                    <footer>
+                        <button name="do_calc" string="proceed" type="object" class="oe_highlight"/>
+                        OR
+                        <button string="cancel" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_form_workingdays" model="ir.actions.act_window">
+            <field name="name">Work Days</field>
+            <field name="res_model">wizard.working.days</field>
+            <field name="veiw_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <act_window
+                id="action_workingdays_wizard"
+                res_model="wizard.working.days"
+                src_model="employee"
+                target="new"
+                name="Salary Calculation"
+                view_mode="form"/>
+    </data>
+</odoo>
